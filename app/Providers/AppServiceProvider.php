@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Models\Car;
+use App\Policies\CarPolicy;
+use Illuminate\Support\Facades\Gate;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +22,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Gate::policy(Car::class, CarPolicy::class);
+        // Gate per is_admin (opcional però recomanat)
+        Gate::define('admin', fn($user) => $user->is_admin);
     }
 }
