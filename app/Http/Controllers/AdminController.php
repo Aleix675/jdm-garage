@@ -17,6 +17,12 @@ class AdminController extends Controller
         ]);
     }
 
+    public function users()
+    {
+        $users = User::withCount('cars')->orderBy('name')->paginate(20);
+        return view('admin.users', compact('users'));
+    }
+
     public function destroyUser(User $user)
     {
         if ($user->is_admin) {

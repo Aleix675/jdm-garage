@@ -1,7 +1,3 @@
-@extends('layouts.app')
-@section('title', isset($car) ? 'Editar cotxe' : 'Nou cotxe')
-
-@section('content')
 <div class="max-w-2xl mx-auto">
     <a href="{{ route('cars.index') }}" class="text-gray-400 hover:text-yellow-400 text-sm mb-6 inline-flex items-center gap-1 transition">
         ← Tornar
@@ -88,13 +84,20 @@
                 <div>
                     <label class="block text-sm text-gray-400 mb-2">Etiquetes</label>
                     <div class="flex flex-wrap gap-2">
-                        @foreach($tags as $tag)
+                       @foreach($tags as $tag)
                             <label class="cursor-pointer">
-                                <input type="checkbox" name="tags[]" value="{{ $tag->id }}" class="sr-only peer"
-                                       {{ (isset($car) && $car->tags->contains($tag->id)) || in_array($tag->id, old('tags', [])) ? 'checked' : '' }}>
-                                <span class="px-3 py-1 rounded-full text-sm border transition peer-checked:font-semibold"
-                                      style="border-color: {{ $tag->color }}55; color: {{ $tag->color }}"
-                                      x-bind:class="">
+                                <input
+                                    type="checkbox"
+                                    name="tags[]"
+                                    value="{{ $tag->id }}"
+                                    class="sr-only peer"
+                                    {{ collect(old('tags', isset($car) ? $car->tags->pluck('id')->toArray() : []))->contains($tag->id) ? 'checked' : '' }}
+                                >
+
+                                <span
+                                    class="px-3 py-1 rounded-full text-sm border transition peer-checked:font-semibold"
+                                    style="border-color: {{ $tag->color }}55; color: {{ $tag->color }}"
+                                >
                                     {{ $tag->name }}
                                 </span>
                             </label>
@@ -125,4 +128,3 @@
         font-weight: 600;
     }
 </style>
-@endsection

@@ -13,7 +13,7 @@ class CarPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,7 +21,7 @@ class CarPolicy
      */
     public function view(User $user, Car $car): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -29,7 +29,7 @@ class CarPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -53,7 +53,7 @@ class CarPolicy
      */
     public function restore(User $user, Car $car): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -61,6 +61,6 @@ class CarPolicy
      */
     public function forceDelete(User $user, Car $car): bool
     {
-        return false;
+        return true;
     }
 }
